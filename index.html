@@ -6,7 +6,6 @@
     <title>ANN.Energy | Offshore Intelligence</title>
     
     <!-- ADVANCED FRONT-END SECURITY (CSP & Hardening) -->
-    <!-- Forces HTTPS, prevents Clickjacking, blocks unauthorized script execution, and disables content sniffing -->
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: http: https:; connect-src 'self'; frame-src 'none'; object-src 'none';">
     <meta http-equiv="X-Content-Type-Options" content="nosniff">
     <meta http-equiv="Strict-Transport-Security" content="max-age=31536000; includeSubDomains">
@@ -38,10 +37,8 @@
 
         #canvas-container {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
+            top: 0; left: 0;
+            width: 100vw; height: 100vh;
             z-index: -1; 
             pointer-events: none;
         }
@@ -61,13 +58,11 @@
             -webkit-text-fill-color: transparent;
         }
 
-        /* Hide Scrollbar for Carousel */
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
         
         html { scroll-behavior: smooth; }
 
-        /* Rich Text Editor Styling */
         .editor-content:empty:before {
             content: attr(data-placeholder);
             color: #9ca3af;
@@ -216,7 +211,7 @@
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
                         Create Blog
                     </button>
-                    <button id="auth-toggle-btn" onclick="toggleAuth()" class="text-sm text-gray-500 hover:text-gray-900 font-medium underline underline-offset-4">
+                    <button id="auth-toggle-btn" onclick="openLoginModal()" class="text-sm text-gray-500 hover:text-gray-900 font-medium underline underline-offset-4">
                         Login as Author
                     </button>
                 </div>
@@ -304,7 +299,7 @@
                 <h4 class="font-bold mb-6 text-gray-900 uppercase tracking-wider text-sm">Contact Us</h4>
                 <ul class="space-y-4 text-gray-600 text-sm font-medium">
                     <li class="flex items-center gap-2"><svg class="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg> m.asad@annenergy.uk</li>
-                    <li class="flex items-center gap-2"><svg class="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg> +44 7887 150158</li>
+                    <li class="flex items-center gap-2"><svg class="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg> +44 7887 150158</li>
                     <li class="flex items-center gap-2"><svg class="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg> United Kingdom</li>
                 </ul>
             </div>
@@ -320,8 +315,34 @@
             <span id="read-category" class="text-sm font-bold text-blue-600 uppercase mb-4 block">Category</span>
             <h1 id="read-title" class="text-4xl md:text-5xl font-extrabold text-gray-900 mb-8 leading-tight">Title</h1>
             <div id="read-thumbnail" class="w-full h-[400px] rounded-2xl bg-cover bg-center mb-12 shadow-lg"></div>
-            <div id="read-content" class="prose prose-lg prose-blue max-w-none text-gray-700 leading-relaxed break-words">
-                <!-- Rich Content Injected Here -->
+            <div id="read-content" class="prose prose-lg prose-blue max-w-none text-gray-700 leading-relaxed break-words"></div>
+        </div>
+    </div>
+
+    <!-- NEW: Author Authentication Modal -->
+    <div id="auth-login-modal" class="fixed inset-0 z-[110] bg-gray-900/40 backdrop-blur-sm hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl shadow-2xl w-full max-w-md overflow-hidden border border-gray-100">
+            <div class="px-6 py-4 border-b border-gray-100 bg-gray-50 flex justify-between items-center">
+                <h3 class="text-lg font-bold text-gray-800">Author Authentication</h3>
+                <button onclick="closeLoginModal()" class="text-gray-400 hover:text-gray-600 transition-colors">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                </button>
+            </div>
+            <div class="p-6">
+                <div class="mb-4">
+                    <label class="block text-sm font-semibold text-gray-700 mb-1">Username</label>
+                    <input type="text" id="auth-username" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none transition-shadow" placeholder="Enter username">
+                </div>
+                <div class="mb-6">
+                    <label class="block text-sm font-semibold text-gray-700 mb-1">Password</label>
+                    <input type="password" id="auth-password" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none transition-shadow" placeholder="Enter password">
+                </div>
+                <div id="login-error" class="text-red-500 text-sm font-semibold mb-4 hidden bg-red-50 p-2 rounded border border-red-100">
+                    Invalid username or password. Access denied.
+                </div>
+                <button onclick="attemptLogin()" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2.5 px-4 rounded-lg transition-colors shadow-sm">
+                    Authenticate
+                </button>
             </div>
         </div>
     </div>
@@ -351,9 +372,7 @@
                 </div>
             </div>
 
-            <!-- WYSIWYG Editor Toolbar -->
             <div class="bg-white border border-gray-300 rounded-t-lg p-3 flex gap-3 flex-wrap shadow-sm items-center">
-                <!-- Typography -->
                 <select onchange="formatDoc('fontName', this.value)" class="p-2 border border-gray-200 rounded text-sm outline-none bg-gray-50">
                     <option value="Inter">Default Font</option>
                     <option value="Arial">Arial</option>
@@ -368,25 +387,21 @@
                 </select>
                 <div class="w-px h-6 bg-gray-300 mx-1"></div>
                 
-                <!-- Formatting -->
                 <button onclick="formatDoc('bold')" class="w-8 h-8 flex items-center justify-center hover:bg-gray-100 rounded text-gray-700 font-bold" title="Bold">B</button>
                 <button onclick="formatDoc('italic')" class="w-8 h-8 flex items-center justify-center hover:bg-gray-100 rounded text-gray-700 italic" title="Italic">I</button>
                 <button onclick="formatDoc('underline')" class="w-8 h-8 flex items-center justify-center hover:bg-gray-100 rounded text-gray-700 underline" title="Underline">U</button>
                 <div class="w-px h-6 bg-gray-300 mx-1"></div>
                 
-                <!-- Alignment -->
                 <button onclick="formatDoc('justifyLeft')" class="p-2 hover:bg-gray-100 rounded text-gray-700" title="Align Left">⬅️</button>
                 <button onclick="formatDoc('justifyCenter')" class="p-2 hover:bg-gray-100 rounded text-gray-700" title="Align Center">↔️</button>
                 <div class="w-px h-6 bg-gray-300 mx-1"></div>
                 
-                <!-- Media & Links -->
                 <button onclick="addLink()" class="px-3 py-1 hover:bg-gray-100 rounded text-gray-700 text-sm font-medium border border-transparent flex items-center gap-1">🔗 Link</button>
                 <button onclick="addRichLink()" class="px-3 py-1 bg-blue-50 hover:bg-blue-100 text-blue-700 border border-blue-200 rounded text-sm font-semibold flex items-center gap-1">📰 Rich Link Card</button>
                 <button onclick="insertImageFile()" class="px-3 py-1 hover:bg-gray-100 rounded text-gray-700 text-sm font-medium border border-transparent flex items-center gap-1">🖼️ Inline Image</button>
                 <button onclick="attachFile()" class="px-3 py-1 hover:bg-gray-100 rounded text-gray-700 text-sm font-medium border border-transparent flex items-center gap-1">📎 Attach File</button>
             </div>
             
-            <!-- Editable Canvas -->
             <div id="edit-content" contenteditable="true" data-placeholder="Start writing your amazing article here..." class="editor-content w-full min-h-[500px] bg-white border border-t-0 border-gray-300 rounded-b-lg p-6 outline-none focus:ring-2 focus:ring-blue-500 text-lg text-gray-800 leading-relaxed shadow-sm overflow-hidden"></div>
         </div>
     </div>
@@ -460,7 +475,7 @@
             document.getElementById('blog-carousel').scrollBy({ left: direction * 350, behavior: 'smooth' });
         }
 
-        // 4. Modal Interactions
+        // 4. Modal Interactions & Authentication
         function openArticle(id) {
             const blog = blogs.find(b => b.id === id);
             if(!blog) return;
@@ -482,8 +497,41 @@
             document.body.style.overflow = 'auto';
         }
 
-        function toggleAuth() {
-            isAuthorized = !isAuthorized;
+        // --- NEW: Authentication Functions ---
+        function openLoginModal() {
+            if (isAuthorized) {
+                // If already logged in, log out directly without prompt
+                isAuthorized = false;
+                updateAuthUI();
+            } else {
+                // Show login modal
+                document.getElementById('auth-login-modal').classList.remove('hidden');
+                document.getElementById('auth-username').value = '';
+                document.getElementById('auth-password').value = '';
+                document.getElementById('login-error').classList.add('hidden');
+                document.body.style.overflow = 'hidden';
+            }
+        }
+
+        function closeLoginModal() {
+            document.getElementById('auth-login-modal').classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        }
+
+        function attemptLogin() {
+            const user = document.getElementById('auth-username').value;
+            const pass = document.getElementById('auth-password').value;
+            
+            if (user === 'M.Asad.Mansoori' && pass === 'Pass@654327') {
+                isAuthorized = true;
+                closeLoginModal();
+                updateAuthUI();
+            } else {
+                document.getElementById('login-error').classList.remove('hidden');
+            }
+        }
+
+        function updateAuthUI() {
             const createBtn = document.getElementById('create-blog-btn');
             const toggleBtn = document.getElementById('auth-toggle-btn');
             if (isAuthorized) {
@@ -651,7 +699,7 @@
         }
     </script>
 
-    <!-- Three.js Generative 3D Wind Turbine & Dynamic Wave Script (Fully Restored & Untouched) -->
+    <!-- Three.js Generative 3D Wind Turbine & Dynamic Wave Script -->
     <script>
         const container = document.getElementById('canvas-container');
         const scene = new THREE.Scene();
