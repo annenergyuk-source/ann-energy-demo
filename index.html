@@ -10,11 +10,10 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;800&display=swap');
         
         body {
             font-family: 'Inter', sans-serif;
-            /* Smooth CSS Gradient Wave Background */
             background: linear-gradient(120deg, #f0f8ff, #ffffff, #e0f2fe);
             background-size: 200% 200%;
             animation: gradientWave 10s ease infinite;
@@ -42,15 +41,14 @@
 
         /* Light Glassmorphism Design for Cards */
         .glass-card {
-            background: rgba(255, 255, 255, 0.6);
+            background: rgba(255, 255, 255, 0.7);
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 255, 255, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.9);
             border-radius: 1rem;
             box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
         }
         
-        /* High-Definition Accent Text for Light Mode */
         .gradient-text {
             background: linear-gradient(90deg, #0284c7, #3b82f6);
             -webkit-background-clip: text;
@@ -67,28 +65,48 @@
     <div id="canvas-container"></div>
 
     <!-- Navigation Header -->
-    <nav class="fixed w-full z-50 glass-card border-b border-gray-200/50 rounded-none bg-white/60">
+    <nav class="fixed w-full z-50 glass-card border-b border-gray-200/50 rounded-none bg-white/70">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-20">
-                <div class="flex-shrink-0 flex items-center gap-3 cursor-pointer">
-                    <div class="w-10 h-10 rounded-full bg-gradient-to-tr from-blue-600 to-cyan-500 flex items-center justify-center font-bold text-white text-xl shadow-[0_0_15px_rgba(37,99,235,0.3)]">A</div>
-                    <span class="font-bold text-xl tracking-wider text-gray-900">ANN.Energy</span>
+                <!-- Updated Logo Integration -->
+                <div class="flex-shrink-0 flex items-center cursor-pointer">
+                    <img src="ANN.Energy logo 8K.png" alt="ANN.Energy Logo" class="h-10 w-auto object-contain">
                 </div>
+                
+                <!-- Desktop Menu -->
                 <div class="hidden md:block">
-                    <div class="ml-10 flex items-baseline space-x-8">
-                        <!-- Updated Links to requested URLs -->
+                    <div class="ml-10 flex items-center space-x-8">
                         <a href="https://dashboard-v2.annenergy.uk/" class="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-semibold transition-colors">Platform</a>
                         <a href="https://powermodule.annenergy.uk/" class="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-semibold transition-colors">Technology</a>
                         <a href="#matrix" class="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-semibold transition-colors">Matrix</a>
+                        <a href="#blog" class="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-semibold transition-colors">Blog</a>
                         <a href="#contact" class="bg-blue-600 hover:bg-blue-700 px-5 py-2.5 rounded-full text-sm font-semibold text-white transition-all shadow-[0_4px_14px_rgba(37,99,235,0.3)]">Operator Sign In</a>
                     </div>
                 </div>
+
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-btn" class="text-gray-700 hover:text-blue-600 focus:outline-none">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Mobile Menu Dropdown -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-100 shadow-lg absolute w-full">
+            <div class="px-4 pt-2 pb-6 space-y-2 flex flex-col">
+                <a href="https://dashboard-v2.annenergy.uk/" class="text-gray-700 hover:bg-blue-50 hover:text-blue-600 block px-3 py-3 rounded-md text-base font-semibold">Platform</a>
+                <a href="https://powermodule.annenergy.uk/" class="text-gray-700 hover:bg-blue-50 hover:text-blue-600 block px-3 py-3 rounded-md text-base font-semibold">Technology</a>
+                <a href="#matrix" class="text-gray-700 hover:bg-blue-50 hover:text-blue-600 block px-3 py-3 rounded-md text-base font-semibold">Matrix</a>
+                <a href="#blog" class="text-gray-700 hover:bg-blue-50 hover:text-blue-600 block px-3 py-3 rounded-md text-base font-semibold">Blog</a>
+                <a href="#contact" class="bg-blue-600 text-white block px-3 py-3 rounded-md text-base font-semibold text-center mt-4">Operator Sign In</a>
             </div>
         </div>
     </nav>
 
     <!-- Hero Section -->
-    <section class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden min-h-screen flex items-center">
+    <section class="relative pt-32 pb-16 lg:pt-48 lg:pb-24 overflow-hidden min-h-[90vh] flex items-center">
         <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center lg:text-left flex flex-col lg:flex-row items-center w-full">
             <div class="lg:w-1/2 z-10">
                 <h2 class="text-blue-600 font-bold tracking-wide uppercase text-xs md:text-sm mb-3">Industry 6.0 • Offshore Electrical Intelligence</h2>
@@ -104,6 +122,16 @@
                     <a href="https://dashboard-v2.annenergy.uk/" class="px-8 py-4 bg-white hover:bg-gray-50 text-gray-900 border border-gray-200 rounded-full font-semibold transition-all shadow-sm text-center">Explore the portal</a>
                 </div>
             </div>
+        </div>
+    </section>
+
+    <!-- Short Description Section -->
+    <section class="py-16 relative z-10 bg-white/60 backdrop-blur-lg border-y border-white/80 shadow-[0_4px_30px_rgba(0,0,0,0.03)]">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-2xl md:text-3xl font-bold text-gray-900 mb-4">Securing the Future of Offshore Energy</h2>
+            <p class="text-gray-600 text-lg md:text-xl leading-relaxed font-medium">
+                Our proprietary Artificial Neural Networks continuously monitor turbine electrical assets. By learning each module's unique signature and building dynamic digital twins, we detect microscopic anomalies months before catastrophic failures occur—transforming reactive maintenance into precise, predictive intelligence.
+            </p>
         </div>
     </section>
 
@@ -149,8 +177,98 @@
         </div>
     </section>
 
+    <!-- Founder Section -->
+    <section id="founder" class="py-24 relative z-10 bg-white border-y border-gray-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <span class="text-blue-600 font-bold tracking-wider text-sm uppercase">Leadership</span>
+                <h2 class="text-3xl md:text-5xl font-extrabold mt-2 text-gray-900">Meet the <span class="gradient-text">Founder</span></h2>
+            </div>
+            
+            <div class="max-w-3xl mx-auto glass-card p-8 md:p-12 text-center flex flex-col items-center">
+                <!-- Initials Avatar -->
+                <div class="w-24 h-24 rounded-full bg-gradient-to-br from-blue-600 to-cyan-500 flex items-center justify-center font-bold text-white text-3xl shadow-lg mb-6 border-4 border-white">
+                    MM
+                </div>
+                <h3 class="text-3xl font-extrabold text-gray-900 mb-2">Mohammad Asad Mansoori</h3>
+                <p class="text-blue-600 font-semibold mb-6">Founder & CEO, ANN.Energy</p>
+                
+                <p class="text-gray-600 text-lg leading-relaxed mb-8">
+                    An innovator in offshore intelligence, Mohammad Asad Mansoori leads ANN.Energy's mission to eliminate blind spots in power electronics. With deep expertise in AI systems and industrial reliability, he architected the Pleiades Neural Network to secure the UK's renewable infrastructure and protect billions in asset capital.
+                </p>
+                
+                <!-- LinkedIn Button -->
+                <a href="https://www.linkedin.com/in/mohdasadmansoori/" target="_blank" class="inline-flex items-center gap-2 bg-[#0A66C2] hover:bg-[#004182] text-white px-6 py-3 rounded-full font-semibold transition-colors shadow-md">
+                    <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                    Connect on LinkedIn
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Blog Section -->
+    <section id="blog" class="py-24 relative z-10 bg-gray-50/50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center mb-12">
+                <div>
+                    <span class="text-blue-600 font-bold tracking-wider text-sm uppercase">Insights & Updates</span>
+                    <h2 class="text-3xl md:text-5xl font-extrabold mt-2 text-gray-900">Company <span class="gradient-text">Blog</span></h2>
+                </div>
+                
+                <!-- Mock Authorization System -->
+                <div class="mt-6 md:mt-0 flex items-center gap-4">
+                    <!-- Secure Create Blog Button (Hidden by default) -->
+                    <button id="create-blog-btn" class="hidden bg-emerald-600 hover:bg-emerald-700 text-white px-5 py-2.5 rounded-full font-semibold transition-all shadow-sm flex items-center gap-2">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+                        Create Blog
+                    </button>
+                    <!-- Auth Toggle Button -->
+                    <button id="auth-toggle-btn" onclick="toggleAuth()" class="text-sm text-gray-500 hover:text-gray-900 font-medium underline underline-offset-4">
+                        Login as Author
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Blog Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Blog Post 1 -->
+                <article class="glass-card overflow-hidden hover:shadow-lg transition-shadow">
+                    <div class="h-48 bg-gradient-to-r from-blue-500 to-cyan-400"></div>
+                    <div class="p-6">
+                        <span class="text-xs font-bold text-blue-600 uppercase mb-2 block">Technology</span>
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">Deploying Neural Networks in High-Stress Environments</h3>
+                        <p class="text-gray-600 text-sm mb-4 line-clamp-3">How we ensure the Pleiades architecture remains stable and accurate when processing millisecond telemetry from volatile offshore converters.</p>
+                        <a href="#" class="text-blue-600 font-semibold text-sm hover:text-blue-800">Read article &rarr;</a>
+                    </div>
+                </article>
+                
+                <!-- Blog Post 2 -->
+                <article class="glass-card overflow-hidden hover:shadow-lg transition-shadow">
+                    <div class="h-48 bg-gradient-to-r from-purple-500 to-indigo-400"></div>
+                    <div class="p-6">
+                        <span class="text-xs font-bold text-purple-600 uppercase mb-2 block">Industry</span>
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">The True Cost of Capacitor Failure</h3>
+                        <p class="text-gray-600 text-sm mb-4 line-clamp-3">Analyzing the cascading financial impact when an undetected fault in a single cabinet forces an entire turbine offline during peak wind season.</p>
+                        <a href="#" class="text-blue-600 font-semibold text-sm hover:text-blue-800">Read article &rarr;</a>
+                    </div>
+                </article>
+
+                <!-- Blog Post 3 -->
+                <article class="glass-card overflow-hidden hover:shadow-lg transition-shadow">
+                    <div class="h-48 bg-gradient-to-r from-emerald-500 to-teal-400"></div>
+                    <div class="p-6">
+                        <span class="text-xs font-bold text-emerald-600 uppercase mb-2 block">Company News</span>
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">ANN.Energy Announces Pilot Readiness for 2026</h3>
+                        <p class="text-gray-600 text-sm mb-4 line-clamp-3">We have officially completed our physics validation phase and are opening our operator portal for industrial evaluation starting August 2026.</p>
+                        <a href="#" class="text-blue-600 font-semibold text-sm hover:text-blue-800">Read article &rarr;</a>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
     <!-- Capability Matrix -->
-    <section id="matrix" class="py-24 relative z-10 bg-white">
+    <section id="matrix" class="py-24 relative z-10 bg-white border-t border-gray-100">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="mb-12">
                 <span class="text-blue-600 font-bold tracking-wider text-sm uppercase">04 · Capability matrix</span>
@@ -203,8 +321,7 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-4 gap-12">
             <div class="col-span-1 md:col-span-2">
                 <div class="flex items-center gap-3 mb-6">
-                    <div class="w-8 h-8 rounded-full bg-gradient-to-tr from-blue-600 to-cyan-500 flex items-center justify-center font-bold text-white text-sm">A</div>
-                    <span class="font-bold text-xl text-gray-900">ANN.Energy</span>
+                    <img src="ANN.Energy logo 8K.png" alt="ANN.Energy Logo" class="h-8 w-auto grayscale opacity-80">
                 </div>
                 <p class="text-gray-600 max-w-sm mb-6 leading-relaxed font-medium">Predictive electrical intelligence for offshore wind. We find the fault in the power electronics before the turbine ever stops.</p>
                 <p class="text-gray-500 text-sm font-medium">© 2026 ANN.Energy. All rights reserved.</p>
@@ -229,12 +346,38 @@
         </div>
     </footer>
 
-    <!-- Three.js Generative 3D Wind Turbine & Dynamic Wave Script -->
+    <!-- Scripts for Interactions & 3D Environment -->
     <script>
+        // --- UI Interactions ---
+        // 1. Mobile Menu Toggle
+        const btn = document.getElementById('mobile-menu-btn');
+        const menu = document.getElementById('mobile-menu');
+        btn.addEventListener('click', () => {
+            menu.classList.toggle('hidden');
+        });
+
+        // 2. Mock Blog Authorization System
+        let isAuthorized = false;
+        function toggleAuth() {
+            isAuthorized = !isAuthorized;
+            const createBtn = document.getElementById('create-blog-btn');
+            const toggleBtn = document.getElementById('auth-toggle-btn');
+            
+            if (isAuthorized) {
+                createBtn.classList.remove('hidden');
+                toggleBtn.innerText = "Logout (Author)";
+                toggleBtn.classList.replace('text-gray-500', 'text-red-500');
+            } else {
+                createBtn.classList.add('hidden');
+                toggleBtn.innerText = "Login as Author";
+                toggleBtn.classList.replace('text-red-500', 'text-gray-500');
+            }
+        }
+
+        // --- Three.js Generative 3D Wind Turbine & Dynamic Wave ---
         const container = document.getElementById('canvas-container');
         const scene = new THREE.Scene();
         
-        // Light fog to blend into the new light theme
         scene.fog = new THREE.FogExp2(0xf0f8ff, 0.035);
 
         const camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.1, 1000);
@@ -244,7 +387,6 @@
         renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2)); 
         container.appendChild(renderer.domElement);
 
-        // --- Cinematic Light Setup for Bright Environment ---
         const ambientLight = new THREE.AmbientLight(0xffffff, 0.9);
         scene.add(ambientLight);
         
@@ -256,9 +398,8 @@
         fillLight.position.set(-10, 5, -15);
         scene.add(fillLight);
 
-        // --- Premium Materials ---
         const metalMaterial = new THREE.MeshStandardMaterial({ 
-            color: 0x94a3b8, // Slate gray metal for contrast on light background
+            color: 0x94a3b8, 
             roughness: 0.2, 
             metalness: 0.8 
         });
@@ -271,7 +412,6 @@
             emissiveIntensity: 0.8
         });
 
-        // --- Constructing the 3D Wind Turbine ---
         const turbine = new THREE.Group();
 
         const towerGeo = new THREE.CylinderGeometry(0.3, 0.6, 12, 64);
@@ -319,7 +459,6 @@
             rotorGroup.add(blade);
         }
 
-        // --- 3D Animated Wave Floor ---
         const waveGeo = new THREE.PlaneGeometry(150, 100, 64, 64);
         const waveMat = new THREE.MeshStandardMaterial({ 
             color: 0xffffff,
@@ -333,7 +472,6 @@
         waveMesh.position.y = -2;
         scene.add(waveMesh);
 
-        // --- Data Particles ---
         const particlesGeo = new THREE.BufferGeometry();
         const particlesCount = 200;
         const posArray = new Float32Array(particlesCount * 3);
@@ -354,7 +492,6 @@
 
         scene.add(turbine);
         
-        // --- Responsive Layout ---
         function updateLayout() {
             camera.aspect = window.innerWidth / window.innerHeight;
             camera.updateProjectionMatrix();
@@ -371,7 +508,6 @@
         window.addEventListener('resize', updateLayout);
         updateLayout();
 
-        // --- Scroll Dynamics Implementation ---
         let currentScrollY = 0;
         let targetScrollY = 0;
         
@@ -379,35 +515,27 @@
             targetScrollY = window.scrollY;
         });
 
-        // --- Core Animation Loop ---
         const clock = new THREE.Clock();
         
         function animate() {
             requestAnimationFrame(animate);
             const elapsedTime = clock.getElapsedTime();
 
-            // Smoothly interpolate scroll for buttery dynamics
             currentScrollY += (targetScrollY - currentScrollY) * 0.08;
 
-            // 1. Dynamic Camera & Turbine movement based on Scroll
             camera.position.y = 5 - currentScrollY * 0.005;
-            // The turbine slowly turns and lifts as the user scrolls down
             turbine.rotation.y = -0.4 + Math.sin(elapsedTime * 0.3) * 0.05 + currentScrollY * 0.001;
 
-            // 2. Constant rotation for blades
             rotorGroup.rotation.z -= 0.035; 
             
-            // 3. Animate the 3D Wave Floor
             const wavePositions = waveGeo.attributes.position.array;
             for(let i=0; i<wavePositions.length; i+=3) {
                 const x = wavePositions[i];
                 const y = wavePositions[i+1];
-                // z in geometry is y in world due to rotation
                 wavePositions[i+2] = Math.sin(x * 0.05 + elapsedTime) * 1.5 + Math.cos(y * 0.05 + elapsedTime) * 1.5;
             }
             waveGeo.attributes.position.needsUpdate = true;
 
-            // 4. Animate atmospheric data particles
             particlesMesh.rotation.y = elapsedTime * 0.03;
             particlesMesh.position.y = Math.sin(elapsedTime * 0.5) * 0.5 + currentScrollY * 0.002;
 
